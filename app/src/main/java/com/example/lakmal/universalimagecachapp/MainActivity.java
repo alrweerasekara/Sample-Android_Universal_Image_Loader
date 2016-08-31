@@ -7,16 +7,33 @@ import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.format.Time;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.widget.ImageView;
 
+import com.nostra13.universalimageloader.cache.disc.impl.LimitedAgeDiskCache;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
+import com.nostra13.universalimageloader.utils.DiskCacheUtils;
+import com.nostra13.universalimageloader.utils.MemoryCacheUtils;
+import com.nostra13.universalimageloader.utils.StorageUtils;
 
+import org.joda.time.Interval;
+
+import java.io.File;
+import java.io.FilenameFilter;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity implements ImageListAdapter.ImageItemCallback {
 
@@ -64,5 +81,50 @@ public class MainActivity extends AppCompatActivity implements ImageListAdapter.
         Intent intent = new Intent(this, FullViewActivity.class);
         intent.putExtra("URL", url);
         startActivity(intent);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.act_clear_disk:
+                removeMemoryCache();
+                return true;
+            case R.id.act_clear_memory:
+
+                return true;
+            case R.id.act_clear_disk_min:
+                removeDiskCacheBefore1Min();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    private void removeMemoryCache() {
+        ImageLoader.getInstance().clearDiskCache();
+        Log.e("L-IMG", "Disk Cleared");
+    }
+
+    private void removeDiskCacheBefore1Min() {
+        File[] lakmalTestCaches = StorageUtils.getOwnCacheDirectory(getApplicationContext(), "LakmalTestCache").listFiles();
+        for (File file : lakmalTestCaches) {
+            long modified = file.lastModified();//milliseconds
+            long current = Calendar.getInstance(Locale.getDefault()).getTime().getTime();//milliseconds
+            Interval interval = new Interval(modified, current);
+            if (interval.toPeriod().getDays()>7) {
+                File forceDel = new File(file.getPath());
+                if (forceDel.exists()) {
+                    forceDel.delete();
+                }
+            }
+        }
+        Log.e("L-IMG", "Disk Cleared before 1 minute");
     }
 }

@@ -43,9 +43,9 @@ public class ImageListAdapter extends RecyclerView.Adapter<ImageListAdapter.Imag
         this.mImageList = imageList;
         this.mDelegate = delegate;
         mImageOptions = new DisplayImageOptions.Builder()
-                .showImageOnLoading(R.drawable.ic_empty)
-                .showImageForEmptyUri(R.drawable.ic_empty)
-                .showImageOnFail(R.drawable.ic_error)
+                .showImageOnLoading(R.drawable.placeholder)
+                .showImageForEmptyUri(R.drawable.placeholder)
+                .showImageOnFail(R.drawable.placeholder)
                 .imageScaleType(ImageScaleType.EXACTLY)
                 .cacheOnDisk(true)
                 .cacheInMemory(true)
@@ -63,7 +63,6 @@ public class ImageListAdapter extends RecyclerView.Adapter<ImageListAdapter.Imag
     @Override
     public void onBindViewHolder(final ImageHolder holder, int position) {
         String item = mImageList.get(position);
-        //ImageLoader.getInstance().displayImage(item,holder.image,mImageOptions);
         ImageLoader.getInstance()
                 .displayImage(item, holder.image, mImageOptions, new SimpleImageLoadingListener() {
                     @Override

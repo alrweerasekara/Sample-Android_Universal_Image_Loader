@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
               android:orientation="horizontal">
@@ -19,19 +19,19 @@
         android:text="#101"
         android:visibility="gone"/>
 
-    <!--<ProgressBar
+    <ProgressBar
         android:id="@+id/progress"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
         android:indeterminate="false"
         android:layout_centerInParent="true"
         android:progressDrawable="@drawable/circular_progress_bar"
         android:background="@drawable/circle_shape"
         style="?android:attr/progressBarStyleHorizontal"
         android:max="100"
-        android:progress="40" />-->
+        android:progress="40" />
 
-    <ProgressBar
+    <!--<ProgressBar
         android:id="@+id/progress"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -39,6 +39,6 @@
         android:indeterminate="false"
         android:max="100"
         android:layout_gravity="center|center_vertical"
-        android:visibility="gone" />
+        android:visibility="visible" />-->
 
-</LinearLayout>
+</RelativeLayout>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:tools="http://schemas.android.com/tools">
+    <item
+        android:id="@+id/act_clear_disk"
+        android:showAsAction="never"
+        android:title="Clear Disk"
+        tools:ignore="AppCompatResource"/>
+    <item
+        android:id="@+id/act_clear_memory"
+        android:showAsAction="never"
+        android:title="Clear Memory"
+        tools:ignore="AppCompatResource"/>
+    <item
+        android:id="@+id/act_clear_disk_min"
+        android:showAsAction="never"
+        android:title="Clear Disk(Before-1min)"
+        tools:ignore="AppCompatResource"/>
+</menu>
